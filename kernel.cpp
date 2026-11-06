@@ -9,7 +9,6 @@ inline unsigned char inb(unsigned short port) {
 }
 
 extern "C" void kernel_main(void) {
-
     (void)inb(0x3DA);       
     outb(0x3C0, 0x30);      
     unsigned char mode = inb(0x3C1); 
@@ -17,13 +16,12 @@ extern "C" void kernel_main(void) {
     outb(0x3C0, mode);      
 
     volatile char *video_memory = (volatile char*) 0xB8000;
- 
+    
     for (int i = 0; i < 80 * 25; i++) {
         video_memory[i * 2]     = ' ';  
         video_memory[i * 2 + 1] = 0x1F; 
     }
     
-
     const char *str = "Welcome to OSExample";
     int i = 0;
     while (str[i] != '\0') {
