@@ -16,10 +16,13 @@ extern "C" void kernel_main(void) {
     outb(0x3C0, mode);      
 
     volatile char *video_memory = (volatile char*) 0xB8000;
+    const char *str = "Welcome to OSExample";
+    int i = 0;
     
-    for (int i = 0; i < 80 * 25; i++) {
-        video_memory[i * 2]     = ' ';  
+    while (str[i] != '\0') {
+        video_memory[i * 2]     = str[i];
         video_memory[i * 2 + 1] = 0x1F; 
+        i++;
     }
     
     while (1) {
