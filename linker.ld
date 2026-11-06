@@ -4,7 +4,7 @@ SECTIONS
 {
     . = 0x10000;
 
-    .text : {
+    .text : AT(0x10000) {
         *(.entry)
         *(.text)
         *(.text.*)
