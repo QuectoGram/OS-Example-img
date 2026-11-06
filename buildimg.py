@@ -15,9 +15,12 @@ def build():
     if os.path.getsize(boot_path) != 512:
         raise RuntimeError("boot.bin must be exactly 512 bytes.")
 
-    run_cmd('nasm -f win32 entry.asm -o entry.o')
+    run_cmd('nasm -f elf32 entry.asm -o entry.o')
+
     run_cmd('g++ -m32 -ffreestanding -fno-pie -fno-stack-protector -fno-rtti -fno-exceptions -nostdlib -c kernel.cpp -o kernel.o')
+    
     run_cmd('g++ -m32 -nostdlib -T linker.ld entry.o kernel.o -o kernel.exe')
+    
     run_cmd('objcopy -O binary kernel.exe kernel.bin')
     
     kernel_path = os.path.join(BASE_DIR, "kernel.bin")
