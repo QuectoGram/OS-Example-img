@@ -49,8 +49,9 @@ print_string:
 
 hang:
     cli
-0:  hlt
-    jmp 0b
+.loop:
+    hlt
+    jmp .loop
 
 msg_error db 'Disk read error!', 13, 10, 0
 
