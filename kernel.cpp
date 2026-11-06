@@ -5,7 +5,7 @@ extern "C" void kernel_main(void) {
     
     while (str[i] != '\0') {
         video_memory[i * 2]     = str[i];
-        video_memory[i * 2 + 1] = 0x1F; // White text on blue background
+        video_memory[i * 2 + 1] = 0x1F;
         i++;
     }
     
