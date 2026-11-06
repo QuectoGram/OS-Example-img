@@ -14,9 +14,8 @@ def build():
     boot_path = os.path.join(BASE_DIR, "boot.bin")
     if os.path.getsize(boot_path) != 512:
         raise RuntimeError("boot.bin must be exactly 512 bytes.")
-
-    run_cmd('g++ -m16 -ffreestanding -fno-pie -fno-stack-protector -nostdlib -c kernel.cpp -o kernel.o')
-    run_cmd('objcopy -O binary kernel.o kernel.bin')
+    run_cmd('g++ -m32 -ffreestanding -fno-pie -fno-stack-protector -fno-rtti -fno-exceptions -nostdlib -c kernel.cpp -o kernel.o')
+    run_cmd('g++ -m32 -nostdlib -T linker.ld kernel.o -o kernel.bin')
     
     kernel_path = os.path.join(BASE_DIR, "kernel.bin")
     img_path = os.path.join(BASE_DIR, "osexample.img")
