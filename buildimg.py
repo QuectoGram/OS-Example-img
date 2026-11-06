@@ -6,7 +6,7 @@ def run_cmd(cmd):
         raise RuntimeError(f"Command failed: {cmd}")
 def build():
     run_cmd("nasm -f bin boot.asm -o boot.bin")
-    run_cmd("g++ -ffreestanding -fno-exceptions -fno-rtti -c kernel.cpp -o kernel.o -m32")
+    run_cmd("g++ -m16 -ffreestanding -fno-pie -fno-stack-protector -nostdlib -Wl,-Ttext,0x0 -Wl,--oformat,binary kernel.cpp -o kernel.bin")
     run_cmd("objcopy -O binary kernel.o kernel.bin")
 
     with open("boot.bin", "rb") as f:
