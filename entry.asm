@@ -6,11 +6,18 @@ extern _kernel_main
 
 _start:
     cli
-    lgdt [gdt_descriptor]
+    
+    ; Load the GDT. Since kernel is at 0x10000, GDT descriptor will be at 0x10020
+    db 0x0F, 0x01, 0x16, 0x20, 0x00
+    
     mov eax, cr0
     or eax, 1
     mov cr0, eax
-    jmp 0x08:init_pm
+    
+    ; Raw 16-bit absolute far jump to 0x08:0x10011 (where init_pm lands in memory)
+    db 0x66, 0xEA
+    dd 0x00010011
+    dw 0x0008
 
 [BITS 32]
 init_pm:
@@ -36,4 +43,4 @@ gdt_end:
 
 gdt_descriptor:
     dw gdt_end - gdt_start - 1
-    dd gdt_start
+    dd gdt_start + 0x10000
