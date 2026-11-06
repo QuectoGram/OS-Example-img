@@ -8,6 +8,12 @@ start:
     mov es, ax
     mov ss, ax
     mov sp, 0x7C00
+    sti
+
+    xor ah, ah
+    xor dl, dl
+    int 0x13
+    jc disk_error
 
     mov ah, 0x02
     mov al, 5
@@ -23,24 +29,28 @@ start:
     jmp 0x1000:0x0000
 
 disk_error:
+    xor ax, ax
+    mov ds, ax
     mov si, msg_error
     call print_string
     jmp hang
 
 print_string:
+    cld
+.loop:
     lodsb
     or al, al
     jz .done
     mov ah, 0x0E
     int 0x10
-    jmp print_string
+    jmp .loop
 .done:
     ret
 
 hang:
     cli
-    hlt
-    jmp hang
+0:  hlt
+    jmp 0b
 
 msg_error db 'Disk read error!', 13, 10, 0
 
