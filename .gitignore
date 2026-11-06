@@ -1,3 +1,6 @@
 # OSEI ingnores
 
 README.md
+others\kernel.o
+others\kernel.bin
+others\boot.bin
