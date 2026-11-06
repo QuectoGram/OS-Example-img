@@ -8,20 +8,23 @@ start:
     mov es, ax
     mov ss, ax
     mov sp, 0x7C00
+    mov [boot_drive], dl
     sti
 
-    xor ah, ah
+    mov ah, 0x00
+    mov dl, [boot_drive]
     int 0x13
     jc disk_error
 
     mov ah, 0x02
-    mov al, 5
+    mov al, 15           
     mov ch, 0
     mov dh, 0
     mov cl, 2
     mov bx, 0x1000
     mov es, bx
     xor bx, bx
+    mov dl, [boot_drive]
     int 0x13
     jc disk_error
 
@@ -52,7 +55,9 @@ hang:
     hlt
     jmp .loop
 
+boot_drive db 0
 msg_error db 'Disk read error!', 13, 10, 0
 
 times 510-($-$$) db 0
 dw 0xAA55
+
