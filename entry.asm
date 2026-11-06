@@ -1,18 +1,15 @@
 [BITS 16]
-SECTION .entry
+SECTION .text
 
 global _start
 extern _kernel_main
 
 _start:
     cli
-    
     lgdt [gdt_descriptor]
-    
     mov eax, cr0
     or eax, 1
     mov cr0, eax
-    
     jmp 0x08:init_pm
 
 [BITS 32]
@@ -39,4 +36,4 @@ gdt_end:
 
 gdt_descriptor:
     dw gdt_end - gdt_start - 1
-    dd gdt_start
+    dd gdt_start + 0x10000
