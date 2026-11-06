@@ -7,14 +7,12 @@ extern _kernel_main
 _start:
     cli
     
-    ; Load GDT using a safe, explicit relocation pointer layout
     lgdt [gdt_descriptor]
     
     mov eax, cr0
     or eax, 1
     mov cr0, eax
     
-    ; Clean 16-bit to 32-bit absolute transition without hardcoded guesses
     jmp 0x08:init_pm
 
 [BITS 32]
