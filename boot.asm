@@ -11,7 +11,6 @@ start:
     sti
 
     xor ah, ah
-    xor dl, dl
     int 0x13
     jc disk_error
 
