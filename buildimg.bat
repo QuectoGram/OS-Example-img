@@ -16,7 +16,7 @@ echo 3 Generating QuectoOS 1.0 Beta img (11 KB)
 copy /b boot.bin + kernel.bin "osexaple.img" > nul
 powershell -Command "$f = [System.IO.File]::OpenWrite('osexample.img'); $f.SetLength(11264); $f.Close()"
 echo.
-echo SUCCESS Generated QuectoOS 1.0 Beta
+echo SUCCESS Generated
 pause
 exit /b 0
 :error
