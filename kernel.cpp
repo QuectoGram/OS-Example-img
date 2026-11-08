@@ -17,7 +17,7 @@ extern "C" void kernel_main(void) {
 
     volatile char *video_memory = (volatile char*) 0xB8000;
     
-    for (int i = 0; i < 80 * 25; i++) {
+    for (int i = 0; i < 80 * 25; i++;) {
         video_memory[i * 2]     = ' ';  
         video_memory[i * 2 + 1] = 0x1F; 
     }
