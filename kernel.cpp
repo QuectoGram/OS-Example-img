@@ -13,7 +13,11 @@ extern "C" void kernel_main(void) {
     outb(0x3C0, 0x30);      
     unsigned char mode = inb(0x3C1); 
     mode &= ~0x08;          
+    
+    (void)inb(0x3DA);
+    outb(0x3C0, 0x30);
     outb(0x3C0, mode);      
+    outb(0x3C0, 0x20);
 
     volatile char *video_memory = (volatile char*) 0xB8000;
     
@@ -34,4 +38,3 @@ extern "C" void kernel_main(void) {
         __asm__ volatile ("hlt");
     }
 }
-
