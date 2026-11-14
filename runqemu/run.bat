@@ -1,3 +1,3 @@
 @echo off
-qemu-system-i386 -machine pc -drive file=osexample.img,format=raw,if=floppy
+qemu-system-x86_64 -drive format=raw,file=osexample.os
 pause
