@@ -17,7 +17,7 @@ start:
     jc disk_error
 
     mov ah, 0x02
-    mov al, 15                  
+    mov al, 21
     mov ch, 0
     mov dh, 0
     mov cl, 2
@@ -56,7 +56,6 @@ hang:
     jmp .loop
 
 boot_drive db 0
-msg_error db "Disk read error!", 13, 10, 0
-
+msg_error db "Disk Read Error!", 13, 10, 0
 times 510-($-$$) db 0
 dw 0xAA55
