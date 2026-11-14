@@ -5,7 +5,6 @@ start:
     cli
     mov ax, 0x1000
     mov ds, ax
-    ; 1. Enable Fast A20
     in al, 0x92
     or al, 2
     out 0x92, al
